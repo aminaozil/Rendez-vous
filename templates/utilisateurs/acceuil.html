@@ -1,0 +1,36 @@
+{% extends "partials/base.html" %}
+{% load static %}
+{% block content %}
+  {% include "partials/nav.html" %}
+
+ 
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-[250px] pl-20 pr-20">
+    <div>
+        <p class="text-7xl text-gray-950 dark:text-gray-950 mb-10">
+           RENDEZ-VOUS
+        </p>
+       
+        <p class="text-xl text-gray-950 dark:text-gray-950 mb-10">
+           La plateforme permet aux utilisateurs d'organiser, planifier, gérer et parfois annuler des rendez-vous d'un docteur.
+          Elle  aide à simplifier le processus de suivre ses rendez-vous et patients pour le docteur, réduisant les erreurs, les oublis et le temps passé à gérer ces processus manuellement. 
+         </p>
+     
+  
+         <a  href="{% url "login" %}" class="text-white text-center w-full bg-cyan-500 hover:bg-cyan-700 focus:ring-4 focus:outline-none focus:ring-cyan-500 font-medium rounded-sm text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-cyan-700 me-2 mb-2">
+            
+            COMMENCER
+         </a>
+    </div>
+    <div>
+        <img class="h-auto max-w-full rounded-lg" src="{% static 'images/rv.png' %}" alt="">
+    </div>
+    
+   
+    
+    
+    
+</div>
+
+
+{% endblock content %}
