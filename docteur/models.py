@@ -9,6 +9,7 @@ class Docteur(models.Model):
     email = models.EmailField()
     password = models.CharField(max_length=255)
     specialite = models.CharField(max_length=255)
+    archive = models.BooleanField(default=False)
 
     def __str__(self):
         return f"{self.nom}"
