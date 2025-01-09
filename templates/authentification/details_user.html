@@ -1,0 +1,93 @@
+{% extends "partials/base.html" %}
+{% load static %}
+{% block content %}
+  {% if user.is_authenticated %}
+  {% include "authentification/dashboard.html" %}
+
+   
+  <div class="pb-4 sm:pl-96">
+    <p class="text-5xl text-cyan-500 text-center font-serif ">RENDEZ-VOUS</p>
+   <div class="pt-3 pr-[70px] pb-4">
+
+    <img src="{{utilisateur.photo_profil.url}}" class="border-4 border-cyan-500 absolute h-32 w-32 rounded-full  mb-[100px]"  alt="Flowbite Logo">
+      <div class="bg-cyan-500 w-full h-[90px] rounded-sm ml-[70px] mb-5">
+        <p class="text-lg text-white dark:text-gray-950 pt-6 font-bold ml-[100px] mb-10">
+          Mon compte
+        </p>
+      </div>
+    </div>
+      <div class="ml-[150px]">
+        <div class="grid grid-cols-3 gap-20 block max-w-lg  h-[80px] pr-3 pl-6 pt-2 pb-4 bg-white border border-cyan-500 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+          <div class="col-span-2">
+            <h5 class="mb-2 text-lg font-bold tracking-tight text-cyan-500 dark:text-white">{{utilisateur.last_name}} {{utilisateur.first_name}}</h5>
+            <p class="font-normal text-gray-700 dark:text-gray-400">{{utilisateur.specialite}}</p>
+          </div>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 text-cyan-500 mr-10 ">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
+          </svg>
+          
+        </div>
+      </div>
+      <div class="pt-[20px] ml-[150px]">
+        <div class="grid grid-cols-3 gap-20 block max-w-lg  max-h-10 pt-2 pl-5 pr-5 pb-5 mb-5 bg-white border border-cyan-500 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+          <div class="col-span-2">
+            
+            <p class="font-bold text-gray-700 dark:text-gray-400">Adresse: <span class="font-normal">{{utilisateur.adresse}}</span></p>
+           
+          </div>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+          </svg> 
+          
+        </div>
+      </div>
+      <div class="ml-[150px]">
+        <div class="grid grid-cols-3 gap-20 block max-w-lg  max-h-10 pt-2 pl-5 pr-5 pb-5 mb-5 bg-white border border-cyan-500 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+          <div class="col-span-2">
+            
+            <p class="font-bold text-gray-700 dark:text-gray-400">Téléphone: <span class="font-normal">{{utilisateur.telephone}}</span></p>
+           
+          </div>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+          </svg> 
+          
+        </div>
+      </div>
+      <div class="ml-[150px]">
+        <div class="grid grid-cols-3 gap-20 block max-w-lg  max-h-10 pt-2 pl-5 pr-5 pb-5 mb-5 bg-white border border-cyan-500 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+          <div class="col-span-2">
+            
+            <p class="font-bold text-gray-700 dark:text-gray-400">E-mail: <span class="font-normal">{{utilisateur.email}}</span></p>
+           
+          </div>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+          </svg> 
+          
+        </div>
+      </div>
+      <div class="ml-[150px]">
+        <div class="grid grid-cols-3 gap-20 block max-w-lg  max-h-10 pt-2 pl-5 pr-5 pb-5 mb-5 bg-white border border-cyan-500 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+          <div class="col-span-2">
+            
+            <p class="font-bold text-gray-700 dark:text-gray-400">Mot de passe: <span class="font-normal">*********</span></p>
+           
+          </div>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+          </svg> 
+          
+        </div>
+      </div>
+    
+    
+    
+    
+   
+      <a href="{% url "info_user" %}" class=" mt-3 text-white bg-cyan-500 hover:bg-cyan-700 focus:ring-4 focus:outline-none focus:ring-cyan-500 font-medium rounded-lg text-sm w-full ml-[150px] px-[225px] py-2.5 text-center dark:bg-cyan-500 dark:hover:bg-cyan-500 dark:focus:ring-cyan-700">ENREGISTRER</a>
+  </div>
+</div>
+   
+{% endif %}
+{% endblock %}

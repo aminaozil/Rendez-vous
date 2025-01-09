@@ -4,14 +4,14 @@
   {% include "partials/nav.html" %}
   <div class=" mt-[180px] mb-10 ml-[350px] mr-10 grid grid-cols-2 gap-2 items-center max-w-xl bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-2xl md:max-h-[380px] dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
 
-    <img src="{% static 'images/patient.jpeg' %}" class=" md:max-h-[270px]  h-full" alt="Flowbite Logo">
+    <img src="{% static 'images/login.jpeg' %}" class=" md:max-h-[270px]  h-full" alt="Flowbite Logo">
     <div class="">
     <form action="{% url "login" %}" method="POST"
-      class="max-w-md mx-auto  md:max-h-[300px] m-8 pr-5">
+      class="max-w-md mx-auto  md:max-h-[300px] m-8 mb-3 pr-5">
       {% csrf_token %}
-      <h1 class="mb-5 text-cyan-500 font-bold text-xl text-center" >Connexion</h1>
-      <p>{{ message }}</p>
-      {% comment %} <ul class=flashes> {% endcomment %}
+      <h1 class=" text-cyan-500 font-bold text-xl text-center" >Connexion</h1>
+      
+      <ul class=flashes>
         {% for message in messages %}
     
         <div class="alert alert-danger bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">

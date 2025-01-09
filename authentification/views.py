@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
 from . import forms
-
+from django.contrib import messages
 def logout_user(request):
     
     logout(request)
@@ -14,15 +14,25 @@ def login_page(request):
         form = forms.LoginForm(request.POST)
         if form.is_valid():
             user = authenticate(
-                username=form.cleaned_data['username'],
+                email=form.cleaned_data['email'],
                 password=form.cleaned_data['password'],
             )
             if user is not None:
                 login(request, user)
-                message = f'Bonjour, {user.username}! Vous êtes connecté.'
+                return redirect("/info_user/")
             else:
-                message = 'Identifiants invalides.'
+                messages.error(request, "Email ou mot de passe incorrect")
     return render(
         request, 'authentification/login.html', context={'form': form, 'message': message})
-def aff(request):
-    return render(request, "rendez/test.html")
+
+
+def accueil(request):
+    return render(request, "index/accueil.html")
+
+def info_user(request):
+    utilisateur = request.user
+    return render(request, "authentification/info.html", {"utilisateur": utilisateur})
+
+def details_user(request):
+    utilisateur = request.user
+    return render(request, "authentification/details_user.html", {"utilisateur": utilisateur})
