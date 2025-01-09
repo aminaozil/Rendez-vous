@@ -1,13 +1,16 @@
 {% extends "partials/base.html" %}
-
+{% load static %}
 {% block content %}
   
   {% include "partials/dashboard.html" %}
-  <div class="pt-[50px] ml-[600px]">
+
    
-    <div class=""> 
-    <img src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" class="border-4 border-cyan-500 absolute h-32 w-32 rounded-full  mb-[300px]"  alt="Flowbite Logo">
-      <div class="bg-cyan-500 w-full h-[90px] rounded-sm ml-[70px] mb-10">
+  <div class="pb-4 sm:pl-96">
+    <p class="text-5xl text-cyan-500 text-center font-serif ">RENDEZ-VOUS</p>
+   <div class="pt-3 pr-[70px] pb-4">
+
+    <img src="{{docteurs.photo.url}}" class="border-4 border-cyan-500 absolute h-32 w-32 rounded-full  mb-[100px]"  alt="Flowbite Logo">
+      <div class="bg-cyan-500 w-full h-[90px] rounded-sm ml-[70px] mb-5">
         <p class="text-lg text-white dark:text-gray-950 pt-6 font-bold ml-[100px] mb-10">
           Mon compte
         </p>
@@ -82,8 +85,9 @@
     
     
    
-      <button type="submit" class=" mt-3 text-white bg-cyan-500 hover:bg-cyan-700 focus:ring-4 focus:outline-none focus:ring-cyan-500 font-medium rounded-lg text-sm w-[509px] ml-[150px] px-5 py-2.5 text-center dark:bg-cyan-500 dark:hover:bg-cyan-500 dark:focus:ring-cyan-700">MODIFIER</button>
+      <a href="{% url "edit_docteur" docteurs.id %}" class=" mt-3 text-white bg-cyan-500 hover:bg-cyan-700 focus:ring-4 focus:outline-none focus:ring-cyan-500 font-medium rounded-lg text-sm w-full ml-[150px] px-[225px] py-2.5 text-center dark:bg-cyan-500 dark:hover:bg-cyan-500 dark:focus:ring-cyan-700">MODIFIER</a>
   </div>
-  
+</div>
+   
 
 {% endblock content %}

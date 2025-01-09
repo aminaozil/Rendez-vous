@@ -16,7 +16,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
+AUTH_USER_MODEL = "authentification.User"
 # Application definition
 
 INSTALLED_APPS = [
@@ -26,7 +26,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'utilisateurs',
+    'authentification',
     'docteur',
 ]
 
@@ -67,7 +67,7 @@ WSGI_APPLICATION = 'rendez_vous.wsgi.application'
 DATABASES = {
      'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'rendezvous_db',
+        'NAME': 'new_db',
         'USER': 'root',
         'PASSWORD': '',
         'HOST': 'localhost',
@@ -121,7 +121,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'templates/static')
     ]
 MEDIA_URL ="/media/"
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'images/')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

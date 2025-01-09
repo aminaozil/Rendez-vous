@@ -10,7 +10,8 @@
       class="max-w-md mx-auto  md:max-h-[300px] m-8 pr-5">
       {% csrf_token %}
       <h1 class="mb-5 text-cyan-500 font-bold text-xl text-center" >Connexion</h1>
-      <ul class=flashes>
+      <p>{{ message }}</p>
+      {% comment %} <ul class=flashes> {% endcomment %}
         {% for message in messages %}
     
         <div class="alert alert-danger bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
