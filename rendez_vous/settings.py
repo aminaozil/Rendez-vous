@@ -29,6 +29,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'authentification',
     'docteur',
+    'patient',
+    'rendezvous'
 ]
 
 MIDDLEWARE = [

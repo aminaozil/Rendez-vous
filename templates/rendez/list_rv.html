@@ -1,0 +1,90 @@
+{% extends "partials/base.html" %}
+
+{% block content %}
+{% include "authentification/dashboard.html" %}
+
+
+<div class="pb-4 sm:pl-96">
+    <div class="grid grid-cols-3 h-16 rounded bg-white dark:bg-white mb-16">
+
+        <div class="col-span-2">
+           
+            <form class="max-w-md mx-auto">   
+                <label for="default-search" class="mb-2 text-sm font-medium text-white sr-only dark:text-white">Recherche</label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                        <svg class="w-4 h-4 text-white dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                        </svg>
+                    </div>
+                    <input type="search" id="recherche" name="recherche" class="block w-full p-4 ps-10 text-sm text-white border border-white rounded-full bg-cyan-950 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-white dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Recherche..." required />
+                    
+                </div>
+            </form>
+
+        </div>
+        
+        <div class="flex-1 ">
+          <div class="relative float-right">
+              <img class="w-12 h-12 rounded-full" src="{{utilisateur.photo_profil.url}}" alt="{{utilisateur.last_name}}">
+              <span class="top-0 right-12 absolute  w-3.5 h-3.5  dark:border-gray-800 rounded-full pr-8">
+                <a href="" >
+                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 14 20">
+                        <path d="M12.133 10.632v-1.8A5.406 5.406 0 0 0 7.979 3.57.946.946 0 0 0 8 3.464V1.1a1 1 0 0 0-2 0v2.364a.946.946 0 0 0 .021.106 5.406 5.406 0 0 0-4.154 5.262v1.8C1.867 13.018 0 13.614 0 14.807 0 15.4 0 16 .538 16h12.924C14 16 14 15.4 14 14.807c0-1.193-1.867-1.789-1.867-4.175ZM3.823 17a3.453 3.453 0 0 0 6.354 0H3.823Z"></path>
+                    </svg>
+                </a>
+              </span>
+              <span class="mr-4 bottom-10 right-8 absolute  w-5 h-5 bg-red-600 border-2 border-red-600 dark:border-gray-800 rounded-full text-white text-xs">{{nbr_rendez}}</span>
+           </div>
+
+        </div>
+      </div>
+
+    <div class="grid grid-cols-2" >
+    <p class="text-gray-900 font-bold text-lg ">Mes rendez_vous</p>
+    <a href="">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="text-cyan-700 size-6 float-left">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+        </svg>
+    </a>
+    </div> 
+    <br>
+    <div class="relative overflow-x-auto w-[700px]" >
+        <table class="w-[700px] text-sm text-left rtl:text-right text-gray-900 dark:text-gray-400">
+           
+            {% for patient in rendez_user %}
+            <tbody>
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                    <td class="px-6 py-4 border-b border-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                          </svg>
+                          
+                    </td>
+                    <td class="px-6 py-4 grid grid-cols-2">
+                        <span>{{patient.date}}</span>
+                        <span class="ml-52">{{patient.heure}}</span>
+                        
+                        
+                        <span class="pt-4 text-cyan-500 font-bold">{{patient.patient}}</span>
+                        
+                        <a href="{% url "details_rendezvous" patient.id %}" class="pt-4 ml-52">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                            </svg>
+                              
+                            
+                        </a>
+                        
+                        
+                    </td>
+                    
+                    
+                </tr>
+                
+            </tbody>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+{% endblock %}

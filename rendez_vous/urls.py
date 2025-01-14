@@ -22,7 +22,9 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include("authentification.urls")),
+    path('patient/', include("patient.urls")),
     path('docteur/', include("docteur.urls")),
+    path('rendezvous/', include("rendezvous.urls")),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
