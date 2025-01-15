@@ -1,11 +1,12 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from authentification.models import User
+from django.contrib.auth.decorators import login_required
 from patient.models import Patient
 from .models import RendezVous
 from .forms import RendezVousForm
 
 
-
+@login_required
 def add_rv(request):
     form = RendezVousForm()
     if request.method == "POST":
@@ -37,7 +38,7 @@ def add_rv(request):
    
         
     return render(request, "rendez/add_rendez.html", {"form": form}) 
-
+@login_required
 def list_rv(request):
     utilisateur = request.user
     rendez_user = RendezVous.objects.filter(medecin=utilisateur)

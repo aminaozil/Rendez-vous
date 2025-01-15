@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.decorators import login_required
 from . import forms
 from django.contrib import messages
 def logout_user(request):
@@ -29,10 +30,12 @@ def login_page(request):
 def accueil(request):
     return render(request, "index/accueil.html")
 
+@login_required
 def info_user(request):
     utilisateur = request.user
     return render(request, "authentification/info.html", {"utilisateur": utilisateur})
 
+@login_required
 def details_user(request):
     utilisateur = request.user
     return render(request, "authentification/details_user.html", {"utilisateur": utilisateur})
