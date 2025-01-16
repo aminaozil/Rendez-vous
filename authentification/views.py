@@ -1,8 +1,13 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
+from authentification.models import User
+from patient.models import Patient
+from rendezvous.models import RendezVous
 from . import forms
 from django.contrib import messages
+
+
 def logout_user(request):
     
     logout(request)
@@ -33,7 +38,10 @@ def accueil(request):
 @login_required
 def info_user(request):
     utilisateur = request.user
-    return render(request, "authentification/info.html", {"utilisateur": utilisateur})
+    
+    nbr_rendez = RendezVous.objects.filter(medecin=utilisateur).count()
+    nbr_patient = Patient.objects.filter(docteur=utilisateur).count()
+    return render(request, "authentification/info.html", {"utilisateur": utilisateur, "nbr_rendez":nbr_rendez, "nbr_patient":nbr_patient})
 
 @login_required
 def details_user(request):

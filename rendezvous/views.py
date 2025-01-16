@@ -3,41 +3,54 @@ from authentification.models import User
 from django.contrib.auth.decorators import login_required
 from patient.models import Patient
 from .models import RendezVous
-from .forms import RendezVousForm
+from django.http import HttpResponse
+from django.utils import timezone
 
 
 @login_required
 def add_rv(request):
-    form = RendezVousForm()
     if request.method == "POST":
-        form = RendezVousForm(request.POST)
-        medecin = request.user
-        titre = request.POST['titre']
-        patient = Patient.objects.get(pk=request.POST['patient'])
-        date  = request.POST['date']
-        heure = request.POST['heure']
-        lieu = request.POST['lieu']
-        rendez_vous = RendezVous.objects.create(
-            medecin = medecin,
-            titre = titre,
-            patient = patient,
-            date = date,
-            heure = heure,
-            lieu = lieu,
+        medecin_id = request.POST.get('medecin_id')
+        patient_id = request.POST.get('patient_id')
+        titre = request.POST.get('titre')  
+        date = request.POST.get('date')  
+        heure = request.POST.get('heure')
+        lieu = request.POST.get('lieu')
 
-        )
-        # re = RendezVous.objects.filter(request.POST["date"]).exists(True)
-        # if re:
-        #     rendez_vous.save()
-            
-        # else:
-        #     mes = "date existe déja"
-            
-        rendez_vous.save()
-        return redirect("/list_rendezvous/")
+        # Convertir la chaîne de date/heure en un objet datetime
+        try:
+            date = timezone.datetime.strptime(date, '%Y-%m-%d')
+            heure = timezone.datetime.strptime(heure, '%H:%M')
+
+        except ValueError:
+            return HttpResponse("Le format choisi est invalide.", status=400)
+
+        # Vérifier si un rendez-vous existe déjà pour ce médecin à cette date
+        existe_rdv = RendezVous.objects.filter(medecin_id=medecin_id, date=date, heure=heure).exists()
+
+        if existe_rdv:
+            return HttpResponse("Il y a déjà un rendez-vous pour ce médecin à cette heure.", status=400)
+        else:
+            # Créer un nouveau rendez-vous
+            medecin = User.objects.get(id=medecin_id)
+            patient = Patient.objects.get(id=patient_id)
+            RendezVous.objects.create(
+                medecin=medecin,
+                patient=patient,
+                titre=titre,
+                date=date,
+                heure=heure,
+                lieu=lieu,
+                
+            )
+            return redirect("rendezvous/list_rendezvous") 
+    else:
+        # Formulaire de création
+        medecins = User.objects.all()
+        patients = Patient.objects.all()
+        return render(request, 'rendez/add_rendez.html', {'medecins': medecins, 'patients':patients}) 
    
         
-    return render(request, "rendez/add_rendez.html", {"form": form}) 
 @login_required
 def list_rv(request):
     utilisateur = request.user

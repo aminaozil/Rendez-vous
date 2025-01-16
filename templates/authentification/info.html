@@ -26,7 +26,7 @@
                 </svg>
                 
               </span>
-              <span class="mr-4 bottom-10 right-8 absolute  w-5 h-5 bg-red-600 border-2 border-red-600 dark:border-gray-800 rounded-full text-white text-xs">12</span>
+              <span class="mr-4 bottom-10 right-8 absolute  w-5 h-5 bg-red-600 border-2 border-red-600 dark:border-gray-800 rounded-full text-white text-xs">{{nbr_rendez}}</span>
            </div>
 
         </div>
@@ -45,7 +45,7 @@
            <div class="bg-white w-10 h-10 rounded-sm shadow items-center ml-52 mr-32">
               
                  <p class="text-lg text-center text-gray-950 dark:text-gray-950 pt-2 font-bold">
-                 98
+                 {{nbr_rendez}}
                  </p>
               
            </div>
@@ -63,18 +63,19 @@
          <div class="flex rounded bg-blue-500 h-32 dark:bg-blue-500 pt-8">
             <div class="items-center">
             
-             <img src="{% static 'images/logo.png' %}" class="absolute h-10 w-10 rounded-full ml-[238px] " alt="Logo">
+             <img src="{% static 'images/per.jpg' %}" class="absolute h-10 w-10 rounded-full ml-[238px] " alt="Logo">
             <div class="bg-white w-10 h-10 rounded-sm shadow items-center ml-52 mr-32">
                
                   <p class="text-lg text-center text-gray-950 dark:text-gray-950 pt-2 font-bold">
-                  98
+                     {{nbr_patient}}
+                  
                   </p>
                
             </div>
             
             
             <p class="text-2xl text-center text-white dark:text-white font-bold ml-24 m-3">
-                  Liste des Rendez-vous   
+                  Liste des Patients
                </p> 
             </div>
             

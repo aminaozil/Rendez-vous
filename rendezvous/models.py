@@ -13,4 +13,4 @@ class RendezVous(models.Model):
 
 
     def __str__(self):
-        return f"{self.titre}"
+        return f"{self.medecin} {self.date} {self.heure}"
