@@ -42,7 +42,7 @@
 
     <div class="grid grid-cols-2" >
     <p class="text-gray-900 font-bold text-lg ">Mes rendez_vous</p>
-    <a href="">
+    <a href="{% url "add_rendezvous" %}">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="text-cyan-700 size-6 float-left">
             <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
         </svg>
@@ -53,6 +53,8 @@
         <table class="w-[700px] text-sm text-left rtl:text-right text-gray-900 dark:text-gray-400">
            
             {% for patient in rendez_user %}
+            {{ patient.full_name|upper }}<br>
+            
             <tbody>
                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                     <td class="px-6 py-4 border-b border-white">
@@ -86,5 +88,23 @@
             {% endfor %}
         </table>
     </div>
+    <br>
+    <div class="pagination">
+    <span class="step-links">
+        {% if rendez_user.has_previous %}
+            <a href="?page=1">&laquo; premier</a>
+            <a href="?page={{ rendez_user.previous_page_number }}">précédent</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ rendez_user.number }} of {{ rendez_user.paginator.num_pages }}.
+        </span>
+
+        {% if rendez_user.has_next %}
+            <a href="?page={{rendez_user.next_page_number }}">suivant</a>
+            <a href="?page={{rendez_user.paginator.num_pages }}">dernier &raquo;</a>
+        {% endif %}
+    </span>
+</div>
 </div>
 {% endblock %}

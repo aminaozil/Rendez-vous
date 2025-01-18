@@ -1,0 +1,61 @@
+{% extends "partials/base.html" %}
+{% load static %}
+{% block content %}
+<img src="{% static 'images/logos.png' %}" class="h-48 w-48 ml-[535px]" alt="">
+<div class="ml-[350px]  mr-10 items-center max-w-xl  md:flex-row md:max-w-4xl  dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"> 
+    <form method="POST"
+        class="max-w-lg ml-12 pr-3 col-span-2" enctype="multipart/form-data">
+        {% csrf_token %}
+        <br>
+        <div class="mb-5">
+            <input type="text" id="titre" name="titre" value="{{rendez.titre}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-emerald-900 focus:border-emerald-900 block w-full p-2.5 dark:bg-white dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-emerald-900 dark:focus:border-emerald-900" placeholder="titre" required />
+        </div>
+        <div class="mb-5">
+            <input type="date" id="date" name="date" value="{{rendez.date}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-emerald-900 focus:border-emerald-900 block w-full p-2.5 dark:bg-white dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-emerald-900 dark:focus:border-emerald-900" placeholder="date" required />
+        </div>
+        <div class="mb-5">
+          <input type="time" id="heure" name="heure" value="{{rendez.heure}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-emerald-900 focus:border-emerald-900 block w-full p-2.5 dark:bg-white dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-emerald-900 dark:focus:border-emerald-900" placeholder="heure" required />
+        </div>
+        
+        <div class="mb-5">
+          <input type="text" id="lieu" name="lieu" value="{{rendez.lieu}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  focus:ring-emerald-900 focus:border-emerald-900 block w-full p-2.5 dark:bg-white dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-emerald-900 dark:focus:border-emerald-900" placeholder="lieu" required />
+        </div>
+
+        <div class="mb-5">
+        <select name="medecin_id" id="medecin_id"   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  focus:ring-emerald-900 focus:border-emerald-900 block w-full p-2.5 dark:bg-white dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-emerald-900 dark:focus:border-emerald-900">
+            <option value="{{rendez.medecin_id}}"> {{rendez.medecin.last_name}} {{ rendez.medecin.first_name }}</option>
+            {% for medecin in medecins %}
+               
+                <option value="{{ medecin.id }}">{{ medecin.last_name }} {{ medecin.first_name }}</option>
+            {% endfor %}
+        </select>
+       </div>
+        <br>
+        <div class="mb-5">
+            <select name="patient_id" id="patient_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  focus:ring-emerald-900 focus:border-emerald-900 block w-full p-2.5 dark:bg-white dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-emerald-900 dark:focus:border-emerald-900">
+                <option value="{{ rendez.patient.id }}">{{ rendez.patient.prenom }} {{ rendez.patient.nom }}</option>
+                {% for patient in patients %}
+                    <option value="{{ patient.id }}">{{ patient.prenom }} {{ patient.nom }}</option>
+                {% endfor %}
+            </select>
+           </div>
+      
+        <button type="submit" class="text-white  bg-cyan-500 hover:bg-cyan-700 focus:ring-4 focus:outline-none focus:ring-cyan-500 font-medium rounded-lg text-sm w-full sm:w-full px-5 py-2.5 text-center dark:bg-cyan-500 dark:hover:bg-cyan-500 dark:focus:ring-cyan-700">Modifier</button>
+        <br>
+            
+        
+                
+               
+    </form>
+        
+</div>
+
+
+    
+
+
+
+
+
+  
+{% endblock %}

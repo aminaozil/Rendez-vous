@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required, permission_required
 from .form import PatientForm
+from django.core.paginator import Paginator
 from .models import Patient
 
 
@@ -12,14 +13,25 @@ def list_patient(request):
     patient_user = Patient.objects.filter(docteur=utilisateur)
     nbr_patient = Patient.objects.filter(docteur=utilisateur).count()
 
+    paginator = Paginator(patient_user, 4)
+    page_number = request.GET.get('page')
+    patientuser  = paginator.get_page(page_number)
+
+    if request.user.is_superuser:
+        patientus = Patient.objects.all()
+        paginator = Paginator(patientus, 4)
+        page_number = request.GET.get('page')
+        patientuser  = paginator.get_page(page_number)
+    
+
     if request.method == "GET":
         name = request.GET.get("recherche")
         if name is not None:
-            patient_user = Patient.objects.filter(docteur=utilisateur).filter(prenom__icontains=name)
+            patientuser = Patient.objects.filter(docteur=utilisateur).filter(prenom__icontains=name)
 
     
 
-    return render(request, "patient/list_patient.html",{'patient_user':patient_user, "utilisateur":utilisateur, "nbr_patient":nbr_patient})
+    return render(request, "patient/list_patient.html",{'patient_user':patient_user,"patientuser":patientuser, "utilisateur":utilisateur, "nbr_patient":nbr_patient})
 @login_required
 @permission_required("patient.add_patient" , raise_exception=True)
 def add_patient(request):
