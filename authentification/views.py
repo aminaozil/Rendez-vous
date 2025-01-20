@@ -8,6 +8,15 @@ from . import forms
 from django.contrib import messages
 
 
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from .serializers import UserSerializer
+
+class UserAPIView(APIView):
+    def get(self, *args, **kwargs):
+        user = User.objects.all()
+        serializer = UserSerializer(user, many=True)
+        return Response(serializer.data)
 def logout_user(request):
     
     logout(request)

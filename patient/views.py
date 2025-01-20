@@ -4,6 +4,28 @@ from .form import PatientForm
 from django.core.paginator import Paginator
 from .models import Patient
 
+from rest_framework.viewsets import ReadOnlyModelViewSet
+from rest_framework.response import Response
+
+from .serializers import PatientSerializer
+
+class PatientViewset(ReadOnlyModelViewSet):
+    serializer_class = PatientSerializer
+
+
+    def get_queryset(self):
+        queryset = Patient.objects.all()
+        
+
+
+        
+        docteur_id = self.request.GET.get('docteur_id')
+        if docteur_id is not None:
+            queryset = queryset.filter(docteur_id=docteur_id)
+
+
+        return queryset
+
 
 
 @login_required(login_url="login")

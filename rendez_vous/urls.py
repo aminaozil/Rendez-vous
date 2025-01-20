@@ -18,14 +18,26 @@ from django.conf import settings
 from django.contrib import admin
 from django.urls import include, path
 from django.conf.urls.static import static
+from rest_framework import routers
 
+from patient.views import PatientViewset
+from authentification.views import UserAPIView
+
+router = routers.SimpleRouter()
+
+
+router.register('patient', PatientViewset, basename="patient")
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include("authentification.urls")),
     path('patient/', include("patient.urls")),
     path('rendezvous/', include("rendezvous.urls")),
     path('accounts/', include('allauth.urls')),
+    path('api-auth/', include('rest_framework.urls')),
+    path('api/user/', UserAPIView.as_view()),
+    path('api/', include(router.urls) ),
 ]
+
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
