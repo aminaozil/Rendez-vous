@@ -20,9 +20,15 @@ class ListUserApiView(StaffPermissionsMixin,
 
 
 class DetailUserApiView(generics.RetrieveAPIView):
-    queryset = User.objects.all()
+    
     serializer_class = UserSerializer
     lookup_field = 'pk'
+    def get_queryset(self):
+        queryset = User.objects.filter(pk=self.request.user.id)
+        if self.request.user.is_staff:
+            queryset = User.objects.all()
+
+        return queryset
 
 
 class CreateUserApiView(StaffPermissionsMixin,

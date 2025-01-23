@@ -11,6 +11,13 @@ from api.mixins import StaffPermissionsMixin
 class PatientListApiView(generics.ListAPIView):
     queryset = Patient.objects.all()
     serializer_class = PatientSerializer
+    
+
+    def get_queryset(self):
+        queryset = Patient.objects.filter(docteur=self.request.user.id)
+        if self.request.user.is_staff:
+            queryset = Patient.objects.all()
+        return queryset
 
 
 class PatientRetrieveApiView(generics.RetrieveAPIView):

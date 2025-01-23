@@ -14,8 +14,15 @@ from api.mixins import StaffPermissionsMixin
 
 
 class ListRendezVousApiView(generics.ListAPIView):
-    queryset = RendezVous.objects.all()
+
+
     serializer_class = RendezVousSerializer
+    def get_queryset(self):
+        queryset = RendezVous.objects.filter(medecin=self.request.user.id)
+        if self.request.user.is_staff:
+            queryset = RendezVous.objects.all()
+        return queryset
+    
 
 
 class RetrieveRendezVousApiView(generics.RetrieveAPIView):

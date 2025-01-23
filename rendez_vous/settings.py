@@ -54,16 +54,14 @@ INSTALLED_APPS = [
     
 ]
 
-# REST_FRAMEWORK = {
-#     'DEFAULT_AUTHENTICATION_CLASSES': [
-#         'rest_framework.authentification.SessionAuthentication',    
-#     ],
-#     'DEFAULT_PERMISSION_CLASSES':[
-        
-#     ]
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS':
+        'rest_framework.pagination.LimitOffsetPagination',
+        'PAGE_SIZE' : 3
     
    
-# }
+}
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
