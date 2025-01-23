@@ -6,6 +6,6 @@ from .models import Patient
 class PatientSerializer(ModelSerializer):
     class Meta:
         model = Patient
-        fields = ['nom', 'prenom', 'age', 'adresse', 'telephone','docteur']
+        fields = ['pk','nom', 'prenom', 'age', 'adresse', 'telephone','docteur']
 
         

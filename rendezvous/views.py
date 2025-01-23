@@ -7,6 +7,70 @@ from django.http import HttpResponse
 from django.utils import timezone
 from django.core.paginator import Paginator
 
+from .serializers import RendezVousSerializer
+from rest_framework import generics
+from api.mixins import StaffPermissionsMixin
+
+
+
+class ListRendezVousApiView(generics.ListAPIView):
+    queryset = RendezVous.objects.all()
+    serializer_class = RendezVousSerializer
+
+
+class RetrieveRendezVousApiView(generics.RetrieveAPIView):
+    queryset = RendezVous.objects.all()
+    serializer_class = RendezVousSerializer
+
+
+class DeleteRendezVousApiView(generics.DestroyAPIView):
+    queryset = RendezVous.objects.all()
+    serializer_class = RendezVousSerializer
+    lookup_field= 'pk'
+
+
+class CreateRendezVousApiView(StaffPermissionsMixin,
+                              generics.ListAPIView):
+    queryset = RendezVous.objects.all()
+    serializer_class = RendezVousSerializer
+
+    def perform_create(self, serializer):
+        titre = serializer.validated_data.get("titre")
+        date = serializer.validated_data.get("date")
+        heure = serializer.validated_data.get("heure")
+        lieu = serializer.validated_data.get("lieu")
+        patient = serializer.validated_data.get("patient")
+        medecin = serializer.validated_data.get("medecin")
+
+        if RendezVous.objects.filter(patient=patient, medecin=medecin, date=date, heure=heure).exists():
+            raise serializer.ValidationError("Un rendez-vous existe déjà pour ce patient et ce médecin à cette heure choisie.")
+
+
+        return serializer.save()
+
+
+class UpdateRendezvousApiView(StaffPermissionsMixin,
+                              generics.UpdateAPIView):
+    
+    queryset = RendezVous.objects.all()
+    serializer_class = RendezVousSerializer
+    lookup_field = 'pk'
+
+    def perform_update(self, serializer):
+        titre = serializer.validated_data.get("titre")
+        date = serializer.validated_data.get("date")
+        heure = serializer.validated_data.get("heure")
+        lieu = serializer.validated_data.get("lieu")
+        patient = serializer.validated_data.get("patient")
+        medecin = serializer.validated_data.get("medecin")
+
+        serializer.save()
+
+        
+        
+    
+
+
 
 @login_required
 @permission_required("rendezvous.add_rendezvous" , raise_exception=True)
@@ -118,3 +182,5 @@ def list_rv(request):
 def details_rendez(request, id):
     rendez = get_object_or_404(RendezVous, id=id) 
     return render(request, "rendez/details_rendez.html", {"rendez":rendez}) 
+
+

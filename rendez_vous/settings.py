@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'authentification',
     'patient',
     'rendezvous',
+    'api',
+    'rest_framework',
 
 
     'allauth',
@@ -49,8 +51,19 @@ INSTALLED_APPS = [
 
     'allauth.socialaccount.providers.google',
 
-    'rest_framework',
+    
 ]
+
+# REST_FRAMEWORK = {
+#     'DEFAULT_AUTHENTICATION_CLASSES': [
+#         'rest_framework.authentification.SessionAuthentication',    
+#     ],
+#     'DEFAULT_PERMISSION_CLASSES':[
+        
+#     ]
+    
+   
+# }
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -160,4 +173,4 @@ SITE_ID = 1
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
+ 

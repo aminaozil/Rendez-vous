@@ -6,17 +6,71 @@ from patient.models import Patient
 from rendezvous.models import RendezVous
 from . import forms
 from django.contrib import messages
-
-
-from rest_framework.views import APIView
-from rest_framework.response import Response
 from .serializers import UserSerializer
 
-class UserAPIView(APIView):
-    def get(self, *args, **kwargs):
-        user = User.objects.all()
-        serializer = UserSerializer(user, many=True)
-        return Response(serializer.data)
+from rest_framework import generics
+from api.mixins import StaffPermissionsMixin
+
+
+class ListUserApiView(StaffPermissionsMixin,
+                      generics.ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+
+
+class DetailUserApiView(generics.RetrieveAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    lookup_field = 'pk'
+
+
+class CreateUserApiView(StaffPermissionsMixin,
+                        generics.CreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    # authentication_classes = [authentication.SessionAuthentication]
+    
+    # permission_classes = [permissions.IsAdminUser]
+    def perform_create(self, serializer):
+        username = serializer.validated_data.get("username")
+        last_name = serializer.validated_data.get("last_name")
+        first_name = serializer.validated_data.get("first_name")
+        email = serializer.validated_data.get("email")
+        password = serializer.validated_data.get("password")
+
+        return serializer.save()
+
+class UpdateUserApiView(StaffPermissionsMixin,
+                        generics.UpdateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+    def perform_update(self, serializer):
+        username = serializer.validated_data.get("username")
+        last_name = serializer.validated_data.get("last_name")
+        first_name = serializer.validated_data.get("first_name")
+        email = serializer.validated_data.get("email")
+        password = serializer.validated_data.get("password")
+        serializer.save()
+
+
+class DeleteUserApiView(StaffPermissionsMixin,
+                        generics.DestroyAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    lookup_field = 'pk'
+
+
+
+
+    
+    
+
+
+
+
+
 def logout_user(request):
     
     logout(request)

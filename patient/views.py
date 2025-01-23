@@ -4,27 +4,63 @@ from .form import PatientForm
 from django.core.paginator import Paginator
 from .models import Patient
 
-from rest_framework.viewsets import ReadOnlyModelViewSet
-from rest_framework.response import Response
-
+from rest_framework import generics
 from .serializers import PatientSerializer
+from api.mixins import StaffPermissionsMixin
 
-class PatientViewset(ReadOnlyModelViewSet):
+class PatientListApiView(generics.ListAPIView):
+    queryset = Patient.objects.all()
     serializer_class = PatientSerializer
 
 
-    def get_queryset(self):
-        queryset = Patient.objects.all()
-        
+class PatientRetrieveApiView(generics.RetrieveAPIView):
+    queryset = Patient.objects.all()
+    serializer_class = PatientSerializer
+    lookup_field = 'pk'
+
+class PatientUpdateApiView(StaffPermissionsMixin,
+                           generics.UpdateAPIView):
+    queryset = Patient.objects.all()
+    serializer_class = PatientSerializer
+    lookup_field = 'pk'
+
+    def perform_update(self, serializer):
+        nom = serializer.validated_data.get("nom")
+        prenom = serializer.validated_data.get("prenom")
+        age = serializer.validated_data.get("age")
+        adresse = serializer.validated_data.get("adresse")
+        telephone = serializer.validated_data.get("telephone")
+        docteur_id = serializer.validated_data.get("docteur_id")
+
+        serializer.save()
+
+
+class PatientDeleteApiView(StaffPermissionsMixin,
+                           generics.DestroyAPIView):
+    queryset = Patient.objects.all()
+    serializer_class = PatientSerializer
+    lookup_field = 'pk'
+
+
+class PatientCreateApiView(StaffPermissionsMixin,
+                           generics.CreateAPIView):
+    queryset = Patient.objects.all()
+    serializer_class = PatientSerializer
+
+    def perform_create(self, serializer):
+        nom = serializer.validated_data.get("nom")
+        prenom = serializer.validated_data.get("prenom")
+        age = serializer.validated_data.get("age")
+        adresse = serializer.validated_data.get("adresse")
+        telephone = serializer.validated_data.get("telephone")
+        docteur_id = serializer.validated_data.get("docteur_id")
+
+        return serializer.save()
+
+
 
 
         
-        docteur_id = self.request.GET.get('docteur_id')
-        if docteur_id is not None:
-            queryset = queryset.filter(docteur_id=docteur_id)
-
-
-        return queryset
 
 
 
@@ -54,6 +90,8 @@ def list_patient(request):
     
 
     return render(request, "patient/list_patient.html",{'patient_user':patient_user,"patientuser":patientuser, "utilisateur":utilisateur, "nbr_patient":nbr_patient})
+
+
 @login_required
 @permission_required("patient.add_patient" , raise_exception=True)
 def add_patient(request):
